@@ -24,11 +24,14 @@ export const discoverSlice = createSlice({
       state.newReleaseLoading = true;
     });
     builder.addCase(getNewRelease.fulfilled, (state, action) => {
+      const { albums } = action.payload;
+      const { items } = albums;
       state.newReleaseLoading = false;
-      state.newReleases = action.payload;
+      state.newReleases = items || [];
     });
     builder.addCase(getNewRelease.rejected, (state, action) => {
       state.newReleaseLoading = false;
+      state.newReleases = [];
     });
 
     // Featured Playlists
@@ -36,11 +39,14 @@ export const discoverSlice = createSlice({
       state.featuredPlaylistsLoading = true;
     });
     builder.addCase(getFeaturedPlaylists.fulfilled, (state, action) => {
+      const { playlists } = action.payload;
+      const { items } = playlists;
       state.featuredPlaylistsLoading = false;
-      state.featuredPlaylists = action.payload;
+      state.featuredPlaylists = items || [];
     });
     builder.addCase(getFeaturedPlaylists.rejected, (state, action) => {
       state.featuredPlaylistsLoading = false;
+      state.featuredPlaylists = [];
     });
 
     // Categories
@@ -48,11 +54,14 @@ export const discoverSlice = createSlice({
       state.categoriesLoading = true;
     });
     builder.addCase(getCategories.fulfilled, (state, action) => {
+      const { categories } = action.payload;
+      const { items } = categories;
       state.categoriesLoading = false;
-      state.categories = action.payload;
+      state.categories = items || [];
     });
     builder.addCase(getCategories.rejected, (state, action) => {
       state.categoriesLoading = false;
+      state.categories = [];
     });
   },
 });

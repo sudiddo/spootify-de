@@ -12,7 +12,7 @@ export const getNewRelease = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((result) => {
-          return result.data.albums.items || [];
+          return result.data;
         })
         .catch((error) => {
           return error;
@@ -32,10 +32,9 @@ export const getFeaturedPlaylists = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((result) => {
-          return result.data.playlists.items || [];
+          return result.data;
         })
         .catch((error) => {
-          console.log("error", error);
           return error;
         });
       return response;
@@ -53,7 +52,7 @@ export const getCategories = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((result) => {
-          return result.data.categories.items || [];
+          return result.data;
         })
         .catch((error) => {
           return error;

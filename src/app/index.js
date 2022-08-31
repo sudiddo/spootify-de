@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Modal from "../common/components/Modal";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingIndicator from "../common/components/LoadingIndicator";
 import Routes from "../routes";
-import { setAccessToken } from "./appSlice";
+import { appSelector } from "./appSlice";
+import { getAuth } from "./appThunk";
+import "./_app.scss";
 
 function App() {
-  const [token, setToken] = useState(null);
   const dispatch = useDispatch();
+  const { appLoading } = useSelector(appSelector);
 
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
-    setToken(token);
-    dispatch(setAccessToken(token));
+    dispatch(getAuth());
   }, [dispatch]);
 
-  return (
-    <>
-      {!token && <Modal />}
-      <Routes />
-    </>
+  return appLoading ? (
+    <div className="loading-container">
+      <LoadingIndicator />
+    </div>
+  ) : (
+    <Routes />
   );
 }
 
