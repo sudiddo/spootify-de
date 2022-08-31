@@ -17,6 +17,10 @@ export const getNewRelease = createAsyncThunk(
         .catch((error) => {
           return error;
         });
+
+      if (!response.albums) {
+        return thunkApi.rejectWithValue("Api error");
+      }
       return response;
     } else {
       return thunkApi.rejectWithValue("No token");
@@ -37,6 +41,10 @@ export const getFeaturedPlaylists = createAsyncThunk(
         .catch((error) => {
           return error;
         });
+
+      if (response.playlists.items[0] === null) {
+        return thunkApi.rejectWithValue("Api error");
+      }
       return response;
     } else {
       return thunkApi.rejectWithValue("No token");
@@ -57,6 +65,9 @@ export const getCategories = createAsyncThunk(
         .catch((error) => {
           return error;
         });
+      if (!response.categories) {
+        return thunkApi.rejectWithValue("Api error");
+      }
       return response;
     } else {
       return thunkApi.rejectWithValue("No token");

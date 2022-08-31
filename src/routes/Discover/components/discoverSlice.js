@@ -42,7 +42,7 @@ export const discoverSlice = createSlice({
       const { playlists } = action.payload;
       const { items } = playlists;
       state.featuredPlaylistsLoading = false;
-      state.featuredPlaylists = items || [];
+      state.featuredPlaylists = items;
     });
     builder.addCase(getFeaturedPlaylists.rejected, (state, action) => {
       state.featuredPlaylistsLoading = false;

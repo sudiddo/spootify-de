@@ -31,7 +31,7 @@ export default function DiscoverBlock({
       <div className="discover-block__header">
         <h2>{text}</h2>
         <span />
-        {!isLoading ? (
+        {data.length ? (
           <div className="animate__animated animate__fadeIn">
             <FontAwesomeIcon
               icon={faChevronLeft}
